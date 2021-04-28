@@ -14,7 +14,7 @@ import sys
 
 def minimumBribes(q):
     total_steps = 0
-    bribe_list = []
+    bribe_list = {}
     for i in range(len(q)):
         # check if there are bribers after q[i]
         num = len(list(filter(lambda x: x > q[i], bribe_list)))
@@ -23,7 +23,7 @@ def minimumBribes(q):
             print("Too chaotic")
             return
         elif q[i] + num > i :
-            bribe_list.append(q[i]) # record briber
+            bribe_list.add(q[i]) # record briber
             total_steps += q[i] + num - (i + 1)
 
     print(total_steps)
