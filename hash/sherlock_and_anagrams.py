@@ -16,43 +16,21 @@ import sys
 #
 
 
-def isAnagrams(s1, s2):
-    # convert s2 to hash for fast lookup
-    hash = {}
-    for c in s2:
-        if c in hash:
-            hash[c] += 1
-        else:
-            hash[c] = 1
-
-    # check s1 against hash
-    for c in s1:
-        if c in hash and hash[c] > 0:
-            hash[c] -= 1
-        elif c in hash and hash[c] == 0:
-            return False
-        else:
-            return False
-
-    return True
-
-
 def sherlockAndAnagrams(s):
     count = 0
+    hash = {}
 
     # get all permutations of substring pairs out of s
     # from 1 char substring to  n-1 char substring, where n = len(s)
-    for i in range(1, len(s)):
+    for i in range(len(s)):
         for j in range(len(s) - i):
-            for k in range(j+1, len(s) - i+1):
-                s1 = s[j:j + i]
-                s2 = s[k:k + i]
+            # sort each substring and store the occurance in hash
+            substring = ''.join(sorted(s[j:j + i + 1]))
+            hash[substring] = hash.get(substring, 0) + 1
 
-                # print(s1, s2, isAnagrams(s1, s2))
-
-                # check each of them if they are anagrams
-                if isAnagrams(s1, s2):
-                    count += 1
+    # count through the hash on the number of anagrams using combination math
+    for k in hash:
+        count += (hash[k]-1) * hash[k] // 2
 
     return count
 
