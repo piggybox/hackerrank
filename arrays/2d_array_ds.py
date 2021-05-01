@@ -6,6 +6,8 @@ import random
 import re
 import sys
 
+# easy
+
 # Complete the hourglassSum function below.
 def hourglassSum(arr):
     top = -math.inf
