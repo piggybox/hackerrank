@@ -15,14 +15,20 @@ import sys
 # The function accepts STRING s as parameter.
 #
 
+
 def checkPalindrome(s):
-    for i in range(len(s)//2):
-        if s[i] == s[len(s)-i-1] :
-            continue
-        else:
-            return False
-        
-    return True
+    if len(s) % 2 == 1:
+        first_half = s[: len(s) // 2]
+        second_half = s[len(s)//2 + 1:]
+    else:
+        first_half = s[: len(s) // 2]
+        second_half = s[len(s)//2:]
+
+    if first_half == second_half[::-1]:  # reversed
+        return True
+    else:
+        return False
+
 
 def palindromeIndex(s):
     # if it's already a palindrome
@@ -32,10 +38,12 @@ def palindromeIndex(s):
     # otherwise scan through the string
     for i in range(len(s)):
         substring = s[0:i] + s[i+1:]
-        if checkPalindrome(substring) :
+        if checkPalindrome(substring):
             return i
 
+    # whether it's already a palindrome or not
     return -1
+
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
