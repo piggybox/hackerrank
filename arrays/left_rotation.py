@@ -14,17 +14,7 @@ def rotLeft(a, d):
     if d > len(a):
         d = d % len(a)
 
-    # shift d times
-    for i in range(d):
-        temp = a[0]
-
-        # shift to left by 1 position
-        for j in range(len(a) - 1):
-            a[j] = a[j + 1]
-
-        a[len(a) - 1] = temp
-
-    return a
+    return a[d:] + a[:d]
 
 
 if __name__ == '__main__':
