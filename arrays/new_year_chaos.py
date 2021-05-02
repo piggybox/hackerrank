@@ -14,20 +14,22 @@ import sys
 # The function accepts INTEGER_ARRAY q as parameter.
 #
 
+# 0, 1, 2, 3, 4
+# 2, 1, 5, 3, 4
 
 def minimumBribes(q):
     total_steps = 0
-    bribe_list = {}
     for i in range(len(q)):
-        # check if there are bribers after q[i]
-        num = len(list(filter(lambda x: x > q[i], bribe_list)))
-
-        if q[i] - (i + 1) >= 3:
+        # bribed too many steps
+        if q[i] - (i + 1) > 2:
             print("Too chaotic")
             return
-        elif q[i] + num > i:
-            bribe_list.add(q[i])  # record briber
-            total_steps += q[i] + num - (i + 1)
+        
+        # how many bribed in front of q[i]
+        # trick here is to limit the range to scan to avoid O(n^2)
+        for j in range(max(0, q[i]- 2), i) :
+            if q[j] > q[i]:
+                total_steps += 1
 
     print(total_steps)
 
