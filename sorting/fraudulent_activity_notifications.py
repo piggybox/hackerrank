@@ -6,8 +6,6 @@ import random
 import re
 import sys
 
-# medium
-
 #
 # Complete the 'activityNotifications' function below.
 #
@@ -17,12 +15,49 @@ import sys
 #  2. INTEGER d
 #
 
+
 def activityNotifications(expenditure, d):
-    # scan through the list with window
+    alert = 0
 
-    # compute medium number 
+    # use count sorting to compute medium in a moving window
+    cs = [0 for x in range(201)]
+    for i in range(d):
+        cs[expenditure[i]] += 1
 
-    # count notification
+    for i in range(d, len(expenditure)):
+        # get median using count sorting array
+
+        two_median = 0
+        if d % 2 == 1:
+            # aggregate count to find out median
+            k, j = 0, 0
+            while k < (d // 2 + 1):
+                k += cs[j]
+                j += 1
+
+            two_median = 2 * (j - 1)  # ugly patch
+        else:
+            k, j = 0, 0
+            while k < (d // 2):
+                k += cs[j]
+                j += 1
+
+            k, q = 0, 0
+            while k < (d // 2 + 1):
+                k += cs[q]
+                q += 1
+
+            two_median = j + q - 2  # ugly patch
+
+        if expenditure[i] >= two_median:
+            alert += 1
+
+        # update count sort array
+        cs[expenditure[i]] += 1
+        cs[expenditure[i - d]] -= 1
+
+    return alert
+
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
