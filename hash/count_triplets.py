@@ -9,9 +9,8 @@ import sys
 # medium
 
 
-# interesting case
-# 5 2
-# 1 2 1 2 4
+# 1 3 9 9 27 81
+
 
 # Complete the countTriplets function below.
 def countTriplets(arr, r):
@@ -19,19 +18,22 @@ def countTriplets(arr, r):
 
     # convert array into hash with counts
     hash = {}
-    for i in arr:
-        hash[i] = hash.get(i, 0) + 1
+    hash2 = {}  # to record pairs
+    for i in range(len(arr)-1, -1, -1): # scan in reversed order
+        # the order of following operations matters!
 
+        # if arr[i] * r exists in hash2, there must be arr[i]*r*r
+        if arr[i] * r in hash2:
+            total_count += hash2[arr[i] * r]
 
-    # iterate through key to find triplet
-    for k in hash:
-        # speciaL case on r == 1, permutation of 3 out of n
-        if k in hash and r == 1:
-            total_count += hash[k] 
+        # update pair count
+        if arr[i] * r in hash:
+            hash2[arr[i]] = hash2.get(arr[i], 0) + hash[arr[i] * r]
 
-        if k * r in hash and k * r * r in hash:
-            # add the number of combination to total_count
-            total_count += hash[k] * hash[k * r] * hash[k * r * r]
+        # update count at last to avoid pollution on count with the same pervious number
+        hash[arr[i]] = hash.get(arr[i], 0) + 1
+
+        # print(arr[i], hash, hash2)
 
     return total_count
 
