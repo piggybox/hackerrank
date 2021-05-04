@@ -9,9 +9,6 @@ import sys
 # medium
 
 
-# 1 3 9 9 27 81
-
-
 # Complete the countTriplets function below.
 def countTriplets(arr, r):
     total_count = 0
@@ -19,7 +16,7 @@ def countTriplets(arr, r):
     # convert array into hash with counts
     hash = {}
     hash2 = {}  # to record pairs
-    for i in range(len(arr)-1, -1, -1): # scan in reversed order
+    for i in range(len(arr) - 1, -1, -1):  # scan in reversed order
         # the order of following operations matters!
 
         # if arr[i] * r exists in hash2, there must be arr[i]*r*r
