@@ -13,6 +13,7 @@ import sys
 # The function accepts STRING s as parameter.
 #
 
+# medium
 
 def isValid(s):
 
