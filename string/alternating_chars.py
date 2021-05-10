@@ -6,6 +6,8 @@ import random
 import re
 import sys
 
+# easy 
+
 #
 # Complete the 'alternatingCharacters' function below.
 #
