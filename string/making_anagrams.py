@@ -6,6 +6,7 @@ import random
 import re
 import sys
 
+# easy
 
 # Complete the makeAnagram function below.
 def makeAnagram(a, b):
