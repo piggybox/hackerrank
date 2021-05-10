@@ -11,7 +11,8 @@ from collections import Counter
 
 # Complete the substrCount function below.
 
-
+# solution 1: grow from center counting
+# O(n^2) complexity
 def substrCount(n, s):
     # instead of applying brutual force approach
     # think about the structure of qualified substrings
@@ -35,6 +36,43 @@ def substrCount(n, s):
 
         total += count_sequence # if all equal, basically it's like permutation
         prev = v
+
+    return total
+
+# solution 2: reduce string to char count list
+# O(n) complexity
+def convert_string(n, s):
+    # two pointers approach
+    result = []
+    prev = s[0]
+    count = 1
+
+    for i in range(1, n):
+        if s[i] != prev:
+            result.append((prev, count))
+            prev = s[i]
+            count = 1 # reset consecutive count
+        else:
+            count += 1
+
+    # add the last one
+    result.append((prev, count))
+
+    return result
+
+def substrCount(n, s):
+    total = 0
+
+    reduced = convert_string(n, s)
+
+    # count substring with same char
+    for i in reduced:
+        total += i[1] * (i[1] + 1 ) // 2 # permutation
+
+    # count special condition
+    for i in range(1, len(reduced) - 1):
+        if reduced[i-1][0] == reduced[i+1][0] and reduced[i][1] == 1:
+            total += min(reduced[i - 1][1], reduced[i + 1][1])
 
     return total
 
